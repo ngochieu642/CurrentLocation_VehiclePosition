@@ -118,14 +118,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void run() {
                     JSONObject object = (JSONObject)args[0];
                     try {
-                        vehicleLong = object.getDouble("Longitude");
-                        vehicleLat  = object.getDouble("Latitude");
-                        System.out.printf("Longitude: %f",vehicleLong);
-                        System.out.printf("latitude: %f",vehicleLat);
+                        if(object != null){
+                            vehicleLong = object.getDouble("Longitude");
+                            vehicleLat  = object.getDouble("Latitude");
+                            System.out.printf("Longitude: %f",vehicleLong);
+                            System.out.printf("latitude: %f",vehicleLat);
+                        }else{
+                            vehicleLong = mDefaultLocation.longitude;
+                            vehicleLat = mDefaultLocation.latitude;
+                        }
                     } catch (JSONException e) {
+                        Toast.makeText(MapsActivity.this, "Error in Emitter Listener!", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
-                        vehicleLong = mDefaultLocation.longitude;
-                        vehicleLat = mDefaultLocation.latitude;
                     }
 
                     if(object!=null){
